@@ -63,7 +63,7 @@ class GuiMain:
     def start(self):
         """
         Start the main window loop
-        :return: 
+        :return:
         """
         LoggerGui.info("Opening GUI")
         self.after()

@@ -121,3 +121,4 @@ class InterfaceUtil:
         # Restart the service
         ProcessUtil.call(["service", "network-manager", "restart"])
         ProcessUtil.call(["service", "networking", "restart"])
+        ProcessUtil.call(["systemctl", "restart", "NetworkManager"])
