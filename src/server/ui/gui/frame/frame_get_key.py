@@ -26,12 +26,12 @@ class FrameGetKey(FrameTab):
         self.button_diamond = Button(self, width=button_size, height=button_size)
         self.button_diamond.image = self.get_image("image/diamond.gif", button_size, button_size)
         self.button_diamond.config(image=self.button_diamond.image)
-        self.button_diamond.number = 1
+        self.button_diamond.number = 2
         # Heart
         self.button_heart = Button(self, width=button_size, height=button_size)
         self.button_heart.image = self.get_image("image/heart.gif", button_size, button_size)
         self.button_heart.config(image=self.button_heart.image)
-        self.button_heart.number = 2
+        self.button_heart.number = 1
         # Clover
         self.button_clover = Button(self, width=button_size, height=button_size)
         self.button_clover.image = self.get_image("image/clover.gif", button_size, button_size)

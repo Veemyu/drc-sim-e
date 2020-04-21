@@ -129,11 +129,14 @@ class FrameRunServer(FrameTab):
             self.label_interface_info.config(text="Server IP: " + InterfaceUtil.get_ip(self.normal_interface)
                                                   + "\n" + os.uname()[1])
         elif status in (WpaSupplicant.DISCONNECTED, WpaSupplicant.TERMINATED):
+            InterfaceUtil.set_metric(self.wii_u_interface, 0)
             self.stop_server()
         elif status == WpaSupplicant.NOT_FOUND:
+            InterfaceUtil.set_metric(self.wii_u_interface, 0)
             self.stop_server()
             messagebox.showerror("Scan Error", "No Wii U found.")
         elif status == WpaSupplicant.FAILED_START:
+            InterfaceUtil.set_metric(self.wii_u_interface, 0)
             self.stop_server()
             messagebox.showerror("Cannot Connect", "Failed to start wpa_supplicant_drc. This could mean there is a "
                                                    "configuration error or wpa_supplicant_drc is not installed. "
@@ -148,6 +151,7 @@ class FrameRunServer(FrameTab):
         LoggerGui.debug("Backend status changed to %s", status)
         self.label_backend_status.config(text=status)
         if status == DrcSimC.STOPPED:
+            InterfaceUtil.set_metric(self.wii_u_interface, 0)
             self.stop_server()
 
     def stop_server(self, event=None):
@@ -194,6 +198,7 @@ class FrameRunServer(FrameTab):
         :return: None
         """
         LoggerGui.debug("FrameRunServer deactivated")
+        InterfaceUtil.set_metric(self.wii_u_interface, 0)
         self.stop_server()
 
     def kill_other_tabs(self):
