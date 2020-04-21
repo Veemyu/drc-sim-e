@@ -26,7 +26,7 @@ class GuiMain:
         self.main_window.resizable(False, False)
         # Notebook
         self.tab_id = None
-        self.notebook = Notebook(self.main_window, width=300, height=150)
+        self.notebook = Notebook(self.main_window, width=600, height=300)
         self.notebook.grid(column=0, row=0)
         self.notebook.bind("<<NotebookTabChanged>>", self.on_tab_changed)
         # Run Server Frame

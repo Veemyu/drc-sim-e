@@ -89,7 +89,8 @@ class InterfaceUtil:
     def get_device_unmanaged_entry(cls, interface):
         # Ubuntu 17.04+ randomizes the MAC address of the device each time network manager restarts.
         # Fortunately, the interface names make up for that by containing the hardware address
-        if OsUtil.is_ubuntu() and int(OsUtil.get_dist_version()[0]) >= 17:
+        # if OsUtil.is_ubuntu() and int(OsUtil.get_dist_version()[0]) >= 17:
+        if OsUtil.is_linux():
             return "interface-name:" + interface
         return "mac:" + cls.get_mac(interface)
 
@@ -119,6 +120,7 @@ class InterfaceUtil:
             for line in conf:
                 conf_write.write(line + "\n")
         # Restart the service
-        ProcessUtil.call(["service", "network-manager", "restart"])
-        ProcessUtil.call(["service", "networking", "restart"])
+        # deprecating service
+        #ProcessUtil.call(["service", "network-manager", "restart"])
+        #ProcessUtil.call(["service", "networking", "restart"])
         ProcessUtil.call(["systemctl", "restart", "NetworkManager"])

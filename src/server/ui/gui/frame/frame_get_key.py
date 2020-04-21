@@ -16,22 +16,22 @@ class FrameGetKey(FrameTab):
         self.wpa_supplicant = None
         self.getting_psk = False
         # Widgets
-        button_size = 50
+        button_size = 100
         # Spade
         self.button_spade = Button(self, width=button_size, height=button_size)
         self.button_spade.image = self.get_image("image/spade.gif", button_size, button_size)
         self.button_spade.config(image=self.button_spade.image)
         self.button_spade.number = 0
-        # Heart
-        self.button_heart = Button(self, width=button_size, height=button_size)
-        self.button_heart.image = self.get_image("image/heart.gif", button_size, button_size)
-        self.button_heart.config(image=self.button_heart.image)
-        self.button_heart.number = 1
         # Diamond
         self.button_diamond = Button(self, width=button_size, height=button_size)
         self.button_diamond.image = self.get_image("image/diamond.gif", button_size, button_size)
         self.button_diamond.config(image=self.button_diamond.image)
-        self.button_diamond.number = 2
+        self.button_diamond.number = 1
+        # Heart
+        self.button_heart = Button(self, width=button_size, height=button_size)
+        self.button_heart.image = self.get_image("image/heart.gif", button_size, button_size)
+        self.button_heart.config(image=self.button_heart.image)
+        self.button_heart.number = 2
         # Clover
         self.button_clover = Button(self, width=button_size, height=button_size)
         self.button_clover.image = self.get_image("image/clover.gif", button_size, button_size)
@@ -53,8 +53,8 @@ class FrameGetKey(FrameTab):
         self.button_delete.bind("<Button-1>", self.button_delete_clicked)
         # Grid
         self.button_spade.grid(column=0, row=0)
-        self.button_heart.grid(column=1, row=0)
-        self.button_diamond.grid(column=2, row=0)
+        self.button_diamond.grid(column=1, row=0)
+        self.button_heart.grid(column=2, row=0)
         self.button_clover.grid(column=3, row=0)
         self.button_delete.grid(column=4, row=0)
         self.entry_pair_code.grid(column=0, row=1, columnspan=5)

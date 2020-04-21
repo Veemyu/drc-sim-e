@@ -74,7 +74,7 @@ class WpaSupplicant(StatusSendingThread):
     def check_status(self):
         """
         Thread that checks WPA status every second
-        Updates 
+        Updates
         :return: None
         """
         while self.running:
