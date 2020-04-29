@@ -87,12 +87,11 @@ class InterfaceUtil:
 
     @classmethod
     def get_device_unmanaged_entry(cls, interface):
-        # Ubuntu 17.04+ randomizes the MAC address of the device each time network manager restarts.
-        # Fortunately, the interface names make up for that by containing the hardware address
-        # if OsUtil.is_ubuntu() and int(OsUtil.get_dist_version()[0]) >= 17:
-        if OsUtil.is_linux():
-            return "interface-name:" + interface
-        return "mac:" + cls.get_mac(interface)
+        # Ubuntu 17.04+ and any other Distro after 2017 randomizes the MAC address of the device each time network manager restarts.
+        # No Python Library is able to get the Hardware Address so I needed to use a Linux Command
+        hwaddress = ProcessUtil.get_output(["ethtool", "-P", interface])
+        hwaddressstr = hwaddress[-18:]
+        return "interface-name:" + interface + ";mac:" + hwaddressstr
 
     @classmethod
     def set_unmanaged_by_network_manager(cls, interface):
@@ -119,8 +118,7 @@ class InterfaceUtil:
         with open(constants.PATH_CONF_NETWORK_MANAGER, "w") as conf_write:
             for line in conf:
                 conf_write.write(line + "\n")
-        # Restart the service
-        # deprecating service
-        #ProcessUtil.call(["service", "network-manager", "restart"])
-        #ProcessUtil.call(["service", "networking", "restart"])
-        ProcessUtil.call(["systemctl", "restart", "NetworkManager"])
+        # Deprecating init.d service calls and using Systemd
+        ProcessUtil.call(["systemctl", "stop", "NetworkManager"])
+        ProcessUtil.call(["systemctl", "restart", "wpa_supplicant"])
+        ProcessUtil.call(["systemctl", "start", "NetworkManager"])

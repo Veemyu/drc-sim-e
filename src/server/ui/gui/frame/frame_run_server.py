@@ -8,6 +8,8 @@ from src.server.util.drc_sim_c import DrcSimC
 from src.server.util.interface_util import InterfaceUtil
 from src.server.util.logging.logger_gui import LoggerGui
 from src.server.util.wpa_supplicant import WpaSupplicant
+from src.server.util.os_util import OsUtil
+from src.server.util.process_util import ProcessUtil
 
 
 class FrameRunServer(FrameTab):
@@ -98,10 +100,21 @@ class FrameRunServer(FrameTab):
                                      " after this.\nSet %s to unmanaged?" % self.wii_u_interface)
             if set_unmanaged:
                 InterfaceUtil.set_unmanaged_by_network_manager(self.wii_u_interface)
+                    
             else:
                 messagebox.showerror("Managed Interface", "Selected Wii U interface is managed by Network Manager.")
                 self.activate()
                 return
+
+            #reboot_now = messagebox.askokcancel(
+            #    "Applying Changes", "For the changes to fully take effect you need to restart your PC "
+            #    "Do it now?")
+            #if reboot_now:
+            #    ProcessUtil.call(["reboot", "-h", "now"])
+            #else: 
+            #    self.activate()
+            #    return
+
         LoggerGui.debug("Starting wpa supplicant")
         self.wpa_supplicant = WpaSupplicant()
         self.wpa_supplicant.add_status_change_listener(self.wpa_status_changed)
